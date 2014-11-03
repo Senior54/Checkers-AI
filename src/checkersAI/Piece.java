@@ -14,13 +14,13 @@ public abstract class Piece {
 		return color;
 	}
 	
+	public int getPosition(){
+		return position;
+	}
+	
 	public abstract boolean isLegalMove(int position);
 	
 	public void setPosition(int pos){
 		position = pos;
-	}
-	
-	public int getPosition(){
-		return position;
 	}
 }
