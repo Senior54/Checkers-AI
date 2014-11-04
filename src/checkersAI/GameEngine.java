@@ -12,10 +12,10 @@ public class GameEngine {
 
 		// placing pieces on the board
 		for (int i = 1; i < 13; i++)
-			board[i] = new Pawn("black", i);
+			board[i] = new Pawn("b", i);
 
 		for (int i = 21; i < 33; i++)
-			board[i] = new Pawn("red", i);
+			board[i] = new Pawn("r", i);
 	}
 
 	public String getCurrentPLayer() {
@@ -68,13 +68,37 @@ public class GameEngine {
 		return !(board[square] == null);
 	}
 
-	public void boardToString() {
-		for (int i = 1; i < 33; i++) {
-			if (board[i] == null) {
-				System.out.println("EMPTY");
-			} else {
-				System.out.println(i + " " + board[i].getColor());
+	/**
+	 * Prints the state of the board. 'x' is used in spaces which are not part of
+	 * the game (always empty). Spaces which are available for a piece to move into 
+	 * are shown by '_'. Pieces are represented as follows:
+	 * black king = B, black pawn = b, red king = R, red pawn = r
+	 */
+	public void printBoard() {
+		int index = 1;
+		for (int r = 1; r <= 8; r++) {	// 8 rows of game spaces
+			for (int c = 1; c <= 4; c++) {	// 4 cols of game spaces
+				if(r % 2 == 1){		// odd rows have empty spaces first
+					if(!(board[index]  == null)){
+						System.out.print("x\t" + board[index].getColor()+ "\t");
+						index++;
+					}else{
+						System.out.print("x\t_\t");
+						index++;
+					}
+				}else{		// even rows have game spaces first
+					if(!(board[index] == null)){
+						System.out.print(board[index].getColor() + "\tx\t");
+						index++;
+					}else{
+						System.out.print("_\tx\t");
+						index++;
+					}
+				}
 			}
+			System.out.println();
 		}
+
+		System.out.println();
 	}
 }

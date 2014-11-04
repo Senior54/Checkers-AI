@@ -17,7 +17,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		while(!isEndOfGame()){
 			
-			engine.boardToString();
+			engine.printBoard();
 			
 			System.out.println(engine.getCurrentPLayer() + " please select a piece");
 			String line = scan.nextLine();

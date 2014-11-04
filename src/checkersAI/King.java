@@ -4,7 +4,7 @@ public class King extends Piece
 {
 
 	public King(String color, int position) {
-		super(color, position);
+		super(color.toUpperCase(), position);
 	}
 	
 	public boolean isLegalMove(int endPosition)
