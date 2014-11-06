@@ -1,16 +1,14 @@
-package checkersAI;
+//package Checkers;
 
 public class Pawn extends Piece {
 	
 	public Pawn(String color, int startingPos) {
-		super(color.toLowerCase(), startingPos);
+		super(color, startingPos);
+		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isLegalMove(int endPosition)
 	{
-		// this depends on the row where a piece starts and ends.
-		// sometimes the difference is 4/5 other times the difference is 3/4.
-		
 		if(super.color.equals("red") &&
 				(super.getPosition() - endPosition == 4 ||
 				super.getPosition() - endPosition == 5) )

@@ -1,4 +1,4 @@
-package checkersAI;
+//package Checkers;
 import java.util.Scanner;
 public class Game {
 	
@@ -17,7 +17,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		while(!isEndOfGame()){
 			
-			engine.printBoard();
+			engine.boardToString();
 			
 			System.out.println(engine.getCurrentPLayer() + " please select a piece");
 			String line = scan.nextLine();

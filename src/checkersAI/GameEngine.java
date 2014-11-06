@@ -1,8 +1,9 @@
-package checkersAI;
+//package Checkers;
 
 public class GameEngine {
 
 	public Piece[] board = new Piece[33]; // ignore 0th index
+	public Grid[] grid = new Grid[33]; // stores piece strings in grid objects or empty string grid objects
 	String currentPlayer;
 	String previousPlayer;
 
@@ -11,11 +12,18 @@ public class GameEngine {
 		previousPlayer = currentPlayer;
 
 		// placing pieces on the board
-		for (int i = 1; i < 13; i++)
-			board[i] = new Pawn("b", i);
-
-		for (int i = 21; i < 33; i++)
-			board[i] = new Pawn("r", i);
+		for (int i = 1; i < 13; i++) {
+			board[i] = new Pawn("B", i);
+			grid[i] = new Grid(i);
+			grid[i].setStr(board[i].getText());
+		}
+		for (int i = 13; i < 21; i++)
+			grid[i] = new Grid(i);
+		for (int i = 21; i < 33; i++) {
+			board[i] = new Pawn("R", i);
+			grid[i] = new Grid(i);
+			grid[i].setStr(board[i].getText());
+		}
 	}
 
 	public String getCurrentPLayer() {
@@ -68,37 +76,13 @@ public class GameEngine {
 		return !(board[square] == null);
 	}
 
-	/**
-	 * Prints the state of the board. 'x' is used in spaces which are not part of
-	 * the game (always empty). Spaces which are available for a piece to move into 
-	 * are shown by '_'. Pieces are represented as follows:
-	 * black king = B, black pawn = b, red king = R, red pawn = r
-	 */
-	public void printBoard() {
-		int index = 1;
-		for (int r = 1; r <= 8; r++) {	// 8 rows of game spaces
-			for (int c = 1; c <= 4; c++) {	// 4 cols of game spaces
-				if(r % 2 == 1){		// odd rows have empty spaces first
-					if(!(board[index]  == null)){
-						System.out.print("x\t" + board[index].getColor()+ "\t");
-						index++;
-					}else{
-						System.out.print("x\t_\t");
-						index++;
-					}
-				}else{		// even rows have game spaces first
-					if(!(board[index] == null)){
-						System.out.print(board[index].getColor() + "\tx\t");
-						index++;
-					}else{
-						System.out.print("_\tx\t");
-						index++;
-					}
-				}
+	public void boardToString() {
+		for (int i = 1; i < 33; i++) {
+			if (board[i] == null) {
+				System.out.println("EMPTY");
+			} else {
+				System.out.println(i + " " + board[i].getColor());
 			}
-			System.out.println();
 		}
-
-		System.out.println();
 	}
 }

@@ -1,4 +1,4 @@
-package checkersAI;
+//package Checkers;
 
 public class AI extends Player {
 	
