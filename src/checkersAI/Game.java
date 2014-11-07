@@ -12,17 +12,16 @@ public class Game {
 	}
 	
 	public void startGame(){
-		// do stuff
 		setUp();
 		Scanner scan = new Scanner(System.in);
 		while(!isEndOfGame()){
 			
 			engine.printBoard();
 			
-			System.out.println(engine.getCurrentPLayer() + " please select a piece");
+			System.out.println(engine.getCurrentPLayer() + " Please select a piece");
 			String line = scan.nextLine();
 			int currPos = Integer.parseInt(line);
-			System.out.println(engine.getCurrentPLayer() + " please make a move");
+			System.out.println(engine.getCurrentPLayer() + " Please make a move");
 			line = scan.nextLine();
 			int endPos = Integer.parseInt(line);
 			
@@ -31,7 +30,7 @@ public class Game {
 			if(!engine.isMoveMade())
 			{
 				try {
-					this.wait(2000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -43,9 +42,9 @@ public class Game {
 	}
 	
 	public void setUp(){
-		
 		gameover = false;
 		engine = new GameEngine();
+		AI AIPlayer = new AI("b", 12);
 	}
 
 	public boolean isEndOfGame(){

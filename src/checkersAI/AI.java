@@ -60,11 +60,19 @@ public class AI extends Player {
 				((pawnValue*numOfRedPawns) + (kingValue*numOfRedKings));
 		return heuristic;
 	}
-//	
-//	public int[] minimax()
-//	{
-//		
-//	}
+	
+	/**
+	 * This is the method which recursively searches the tree of possible moves 
+	 * (up to a certain depth) to find the best heuristic value.
+	 * @return An array of length 2. Index 0: the current position of the piece
+	 * to move; Index 1: The new position where the piece is moved to.
+	 */
+	public int[] minimax()
+	{
+		int[] move = new int[2];
+		
+		return move;
+	}
     
 
 }
