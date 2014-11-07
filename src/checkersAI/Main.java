@@ -6,7 +6,7 @@ public class Main {
 	public static Grid[] grid = new Grid[33]; // stores piece strings in grid objects or empty string grid objects
 	
 	public static void main(String[] args) {
-		//Game game = new Game();
+		Game game = new Game();
 		
 		// placing pieces on the board
 				for (int i = 1; i < 13; i++) {
@@ -21,8 +21,9 @@ public class Main {
 					grid[i] = new Grid(i);
 					grid[i].setStr(board[i].getText());
 				}
-		GUI test = new GUI();
-		test.drawBoard(grid);
+		//GUI test = new GUI();
+		//test.drawBoard(grid);
+		//game.begin();
 	}
 
 }

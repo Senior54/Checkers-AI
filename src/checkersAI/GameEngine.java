@@ -1,19 +1,26 @@
 package checkersAI;
 
+import java.util.ArrayList;
+
 public class GameEngine {
 
 	public Piece[] board = new Piece[33]; // ignore 0th index
 	public Grid[] grid = new Grid[33]; // stores piece strings in grid objects or empty string grid objects
-	String currentPlayer;
-	String previousPlayer;
-
+	public ArrayList<Piece> player1 = new ArrayList<Piece>(); // player 1 pieces, bottom 3 rows of board, always human
+	public ArrayList<Piece> player2 = new ArrayList<Piece>(); // player 2 pieces, top 3 rows of board, human or AI
+	//String currentPlayer;
+	//String previousPlayer;
+	public int currentPlayer = 1;
+	public int previousPlayer = 2;
+	
 	public GameEngine() {
-		currentPlayer = "red";
-		previousPlayer = currentPlayer;
+		currentPlayer = 1;
+		//previousPlayer = currentPlayer;
 
 		// placing pieces on the board
 		for (int i = 1; i < 13; i++) {
 			board[i] = new Pawn("B", i);
+			player2.add(board[i]);
 			grid[i] = new Grid(i);
 			grid[i].setStr(board[i].getText());
 		}
@@ -21,23 +28,40 @@ public class GameEngine {
 			grid[i] = new Grid(i);
 		for (int i = 21; i < 33; i++) {
 			board[i] = new Pawn("R", i);
+			player1.add(board[i]);
 			grid[i] = new Grid(i);
 			grid[i].setStr(board[i].getText());
 		}
 	}
 
-	public String getCurrentPLayer() {
+	public int getCurrentPLayer() {
 		return currentPlayer;
 	}
 
 	public void updateCurrentPlayer() {
-		if (currentPlayer == "red") {
-			currentPlayer = "black";
+		if (currentPlayer == 1) {
+			currentPlayer = 2;
 		} else {
-			currentPlayer = "red";
+			currentPlayer = 1;
 		}
 	}
 
+	public boolean isValidPiece(int current) {
+		if (this.currentPlayer == 1) {
+			for(int i = 0; i <this.player1.size(); i++ ) {
+				if (player1.get(i).getPosition() == current)
+					return true;
+			}
+		}
+		else if (this.currentPlayer == 2) {
+			for (int i = 0; i < this.player2.size(); i++) {
+				if (player2.get(i).getPosition() == current)
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isLegalMove(Piece piece, int position) {
 		return piece.isLegalMove(position);
 	}
