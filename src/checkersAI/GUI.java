@@ -1,4 +1,5 @@
-//package Checkers;
+package checkersAI;
+
 import java.util.Scanner;
 
 public class GUI {

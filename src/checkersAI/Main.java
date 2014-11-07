@@ -1,4 +1,4 @@
-//package Checkers;
+package checkersAI;
 
 public class Main {
 

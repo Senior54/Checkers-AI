@@ -1,3 +1,4 @@
+package checkersAI;
 
 public class Grid {
 	String str = "";
