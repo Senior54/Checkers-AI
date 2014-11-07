@@ -5,9 +5,6 @@ public class AI extends Player {
 	private int pawnValue = 1;
 	private int kingValue = 3;
 //	private int positionValue = 5;
-	
-	// Minimax recursion with multi-threading
-	// Heuristic function
 
 	/**
 	 * Constructor for AI class to be a computer player in a game of checkers.
@@ -19,9 +16,10 @@ public class AI extends Player {
 	}
 	
 	/**
-	 * 
-	 * @param board
-	 * @return
+	 * Gets the heuristic value for the current state of the board which 
+	 * refers to the "goodness" of a given board state for the computer.
+	 * @param board The current state of the board
+	 * @return The heuristic value
 	 */
 	public int getHeuristic(Piece[] board){
 		int heuristic = 0;
@@ -68,7 +66,7 @@ public class AI extends Player {
 	 * to move; Index 1: The new position where the piece is moved to.
 	 */
 	public int[] minimax()
-	{
+	{	// Possibly to be done with multi-threading
 		int[] move = new int[2];
 		
 		return move;
