@@ -28,6 +28,8 @@ public class AI extends Player {
 		int numOfRedPawns = 0;
 		int numOfRedKings = 0;
 		
+		// Will need to be modified for pieces in favorable positions
+		
 		for(int i = 1; i <= 32; i++)
 		{
 			if(board[i] != null)
@@ -35,25 +37,26 @@ public class AI extends Player {
 				Piece p = board[i];
 				if(p instanceof Pawn)
 				{
-					if(p.color.equalsIgnoreCase("b"))
+					if(p.getColor().equalsIgnoreCase("b"))
 					{
 						numOfBlackPawns++;
-					}else if(p.color.equalsIgnoreCase("r"))
+					}else if(p.getColor().equalsIgnoreCase("r"))
 					{
 						numOfRedPawns++;
 					}
 				}else if(p instanceof King)
 				{
-					if(p.color.equalsIgnoreCase("b"))
+					if(p.getColor().equalsIgnoreCase("b"))
 					{
 						numOfBlackKings++;
-					}else if(p.color.equalsIgnoreCase("r"))
+					}else if(p.getColor().equalsIgnoreCase("r"))
 					{
 						numOfRedKings++;
 					}
 				}
 			}
 		}
+		
 		heuristic = ((pawnValue*numOfBlackPawns) + (kingValue*numOfBlackKings)) -
 				((pawnValue*numOfRedPawns) + (kingValue*numOfRedKings));
 		return heuristic;
@@ -62,14 +65,32 @@ public class AI extends Player {
 	/**
 	 * This is the method which recursively searches the tree of possible moves 
 	 * (up to a certain depth) to find the best heuristic value.
-	 * @return An array of length 2. Index 0: the current position of the piece
-	 * to move; Index 1: The new position where the piece is moved to.
+	 * 
+	 * @param currBoard The current state of the board.
+	 * @param turn The currentPlayer making a move (red or black).
+	 * @param searchDepth The number of levels down the minimax tree to search.
+	 * @return An array of length 2 representing the best move found. Index 0: the
+	 * current position of the piece to move; Index 1: The new position where the 
+	 * piece is moved to. Index 2: the heuristic value.
 	 */
-	public int[] minimax()
+	public int[] minimaxRecursion(GameEngine eng,  int searchDepth)
 	{	// Possibly to be done with multi-threading
-		int[] move = new int[2];
 		
-		return move;
+		// Board is cloned so the actual board is not modified during a search.
+		Piece[] boardState = eng.getBoard().clone();
+		String turn = eng.getCurrentPLayer();
+		int[] moveInfo = new int[3];
+		
+		if(searchDepth == 0){
+			// base case, at a leaf in the tree.
+			moveInfo[2] = getHeuristic(boardState);
+		}else{
+			// recursive step:
+			// make move and call minimax on modified boardState and updating turn
+			
+		}
+		
+		return moveInfo;
 	}
     
 

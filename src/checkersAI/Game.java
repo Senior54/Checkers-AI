@@ -4,6 +4,8 @@ public class Game {
 	
 	public Player human = new Player("red", 12);
 	public AI computer = new AI("black", 12);
+	// maxSearch depth = (number of turns for each player)*(number of players)
+	public int maxSearchDepth = 4;
 	public GameEngine engine;
 	public boolean gameover;
 	
@@ -19,23 +21,23 @@ public class Game {
 			engine.printBoard();
 			if(engine.getCurrentPLayer().equals("red"))
 			{	// Human's turn...
-				boolean validPiece = false;
+				boolean moveablePiece = false;
 				System.out.println(engine.getCurrentPLayer() + " Please select a piece");
 				String line = scan.nextLine();
-				int currPos = Integer.parseInt(line);
-				while(!validPiece){
-					if( (currPos > 0) && (currPos < 33) && 
-							(engine.board[currPos] != null) &&
-							engine.board[currPos].getColor().equals("r"))
+				int selectedPiece = Integer.parseInt(line);
+				while(!moveablePiece){
+					if( (selectedPiece > 0) && (selectedPiece < 33) && 
+							(engine.isOccupied(selectedPiece)) &&
+							engine.getBoard()[selectedPiece].getColor().equals("r"))
 					{
 						// The user has given input which is within the board size,
 						// and the square in the board is holding a users's red piece.
-						validPiece = true;
+						moveablePiece = true;
 					}else{
 						System.out.println("Invalid position number\n" +
 								engine.getCurrentPLayer() + " Please select a piece");
 						line = scan.nextLine();
-						currPos = Integer.parseInt(line);
+						selectedPiece = Integer.parseInt(line);
 					}
 				}
 
@@ -44,9 +46,11 @@ public class Game {
 				line = scan.nextLine();
 				int endPos = Integer.parseInt(line);
 				while(!validMove){
-					if(engine.board[endPos] == null)
+					if( (!engine.isOccupied(endPos)) && 
+							engine.isLegalMove(engine.getBoard()[selectedPiece], endPos))
 					{
 						// The user has chosen an open square on the board to move to.
+						// Still needs to check for validity of the move/jump
 						validMove = true;
 					}else{
 						System.out.println("Cannot move here\n" +
@@ -57,15 +61,13 @@ public class Game {
 				}
 				
 				// Updating board to show the move made by the user.
-				Piece p = engine.board[currPos];
-				engine.board[currPos] = null;
-				engine.board[endPos] = p;
+				engine.makeMove(selectedPiece, endPos);
 				
 			} else if(engine.getCurrentPLayer().equals("black"))
 			{	// Computer's turn
 				System.out.println("Computer's turn...");
 				
-				System.out.println("Heuristic value: " +computer.getHeuristic(engine.board));
+//				System.out.println("Heuristic value: " +computer.getHeuristic(engine.board));
 			}
 			
 			
@@ -76,7 +78,6 @@ public class Game {
 //				try {
 //					Thread.sleep(2000);
 //				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
 //			}
