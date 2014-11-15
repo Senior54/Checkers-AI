@@ -11,8 +11,8 @@ public class AI extends Player {
 	 * @param color The color the computer will be playing.
 	 * @param numberOfPieces The starting number of pieces for this player.
 	 */
-	public AI(String color, int numberOfPieces) {
-		super(color, numberOfPieces);
+	public AI(char color, int numberOfPieces, int numKings) {
+		super(color, numberOfPieces, numKings);
 	}
 	
 	/**
@@ -21,41 +21,20 @@ public class AI extends Player {
 	 * @param board The current state of the board
 	 * @return The heuristic value
 	 */
-	public int getHeuristic(Piece[] board){
+	public int getHeuristic(GameEngine eng){
 		int heuristic = 0;
-		int numOfBlackPawns = 0;
-		int numOfBlackKings = 0;
-		int numOfRedPawns = 0;
-		int numOfRedKings = 0;
+		
+		int totalBlackPieces = eng.comp().getPiecesLeft();
+		int numOfBlackKings = eng.comp().getKingedPieces();
+		int numOfBlackPawns = totalBlackPieces - numOfBlackKings;
+		
+		int totalRedPieces = eng.human().getPiecesLeft();
+		int numOfRedKings = eng.comp().getKingedPieces();
+		int numOfRedPawns = totalRedPieces - numOfRedKings;
 		
 		// Will need to be modified for pieces in favorable positions
 		
-		for(int i = 1; i <= 32; i++)
-		{
-			if(board[i] != null)
-			{
-				Piece p = board[i];
-				if(p instanceof Pawn)
-				{
-					if(p.getColor().equalsIgnoreCase("b"))
-					{
-						numOfBlackPawns++;
-					}else if(p.getColor().equalsIgnoreCase("r"))
-					{
-						numOfRedPawns++;
-					}
-				}else if(p instanceof King)
-				{
-					if(p.getColor().equalsIgnoreCase("b"))
-					{
-						numOfBlackKings++;
-					}else if(p.getColor().equalsIgnoreCase("r"))
-					{
-						numOfRedKings++;
-					}
-				}
-			}
-		}
+		
 		
 		heuristic = ((pawnValue*numOfBlackPawns) + (kingValue*numOfBlackKings)) -
 				((pawnValue*numOfRedPawns) + (kingValue*numOfRedKings));
@@ -77,13 +56,13 @@ public class AI extends Player {
 	{	// Possibly to be done with multi-threading
 		
 		// Board is cloned so the actual board is not modified during a search.
-		Piece[] boardState = eng.getBoard().clone();
-		String turn = eng.getCurrentPLayer();
+		Piece[][] boardState = eng.getBoard().clone();
+		char turn = eng.getCurrentPlayer();
 		int[] moveInfo = new int[3];
 		
 		if(searchDepth == 0){
 			// base case, at a leaf in the tree.
-			moveInfo[2] = getHeuristic(boardState);
+			moveInfo[2] = getHeuristic(eng);
 		}else{
 			// recursive step:
 			// make move and call minimax on modified boardState and updating turn
