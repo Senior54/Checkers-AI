@@ -14,54 +14,54 @@ public class GameEngine {
 	 * Constructor for GameEngine class. Sets human as the red pieces, gives
 	 * them the first move, and initializes the board.
 	 */
-	//TESTING PURPOSE, use this to set certain position 
-	//and the amount of pieces in each player for testing 
-	//to see if each method works
-	public GameEngine() {
-		currentPlayer = 'r';
-		previousPlayer = 'r';
-
-		board[1][0] = new King('r', 1, 0);
-		board[2][1] = new Pawn('b', 2, 1);
-		board[4][3] = new Pawn('b', 4, 3);
-		board[6][5] = new Pawn('b', 6, 5);
-		
-		human = new Player('r', 1, 1);
-		comp = new Player('b', 3, 0);
-	}
-
+//	//TESTING PURPOSE, use this to set certain position 
+//	//and the amount of pieces in each player for testing 
+//	//to see if each method works
 //	public GameEngine() {
 //		currentPlayer = 'r';
 //		previousPlayer = 'r';
 //
-//		// placing pieces on the board
-//		for (int i = 0; i < 3; i++) {
-//			for (int j = 0; j < 8; j++) {
-//				if (i % 2 == 0) {
-//					if (j % 2 != 0) {
-//						board[i][j] = new Pawn('b', i, j);
-//					}
-//				} else {
-//					if (j % 2 == 0) {
-//						board[i][j] = new Pawn('b', i, j);
-//					}
-//				}
-//			}
-//		}
-//		for (int i = 5; i < 8; i++) {
-//			for (int j = 0; j < 8; j++) {
-//				if (i % 2 != 0) {
-//					if (j % 2 == 0) {
-//						board[i][j] = new Pawn('r', i, j);
-//					}
-//				} else {
-//					if (j % 2 != 0) {
-//						board[i][j] = new Pawn('r', i, j);
-//					}
-//				}
-//			}
-//		}
+//		board[1][0] = new King('r', 1, 0);
+//		board[2][1] = new Pawn('b', 2, 1);
+//		board[4][3] = new Pawn('b', 4, 3);
+//		board[6][5] = new Pawn('b', 6, 5);
+//		
+//		human = new Player('r', 1, 1);
+//		comp = new Player('b', 3, 0);
 //	}
+
+	public GameEngine() {
+		currentPlayer = 'r';
+		previousPlayer = 'r';
+
+		// placing pieces on the board
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i % 2 == 0) {
+					if (j % 2 != 0) {
+						board[i][j] = new Pawn('b', i, j);
+					}
+				} else {
+					if (j % 2 == 0) {
+						board[i][j] = new Pawn('b', i, j);
+					}
+				}
+			}
+		}
+		for (int i = 5; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (i % 2 != 0) {
+					if (j % 2 == 0) {
+						board[i][j] = new Pawn('r', i, j);
+					}
+				} else {
+					if (j % 2 != 0) {
+						board[i][j] = new Pawn('r', i, j);
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * Returns the current player (r/b) as a string.

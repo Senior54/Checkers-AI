@@ -21,9 +21,14 @@ public class Game {
 			playerTakesTurn();
 			// Give turn to next player
 			engine.updateCurrentPlayer();
+			System.out.println("Red: " + engine.human().getPiecesLeft() + " Pieces left ( " +
+								engine.human().getKingedPieces() + " kings).");
+			System.out.println("Black: " + engine.comp().getPiecesLeft() + " Pieces left ( " +
+					engine.comp().getKingedPieces() + " kings).");
 		}
 		
 		// Gameover:
+		engine.printBoard();
 		System.out.println("GAMEOVER");
 		String winner;
 		if(engine.comp().getPiecesLeft() == 0){
